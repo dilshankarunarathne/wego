@@ -1,9 +1,5 @@
-const express = require('express');
 const nodemailer = require('nodemailer');
-const Mailgen = require('mailgen');
 require('dotenv').config();
-const app = express();
-const port = 3001;
 
 let config = {
     service: 'gmail',
@@ -17,7 +13,7 @@ let transporter = nodemailer.createTransport(config);
 
 function sendEmail(to, subject, html, attachments = []) {
     let message = {
-        from: 'dimankaperera@gmail.com', 
+        from: '-----@gmail.com', 
         to: to, 
         subject: subject, 
         html: html, 
