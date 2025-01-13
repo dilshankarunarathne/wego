@@ -13,7 +13,7 @@ let transporter = nodemailer.createTransport(config);
 
 function sendEmail(to, subject, html, attachments = []) {
     let message = {
-        from: '-----@gmail.com', 
+        from: process.env.NODEJS_GMAIL_APP_USER, 
         to: to, 
         subject: subject, 
         html: html, 
