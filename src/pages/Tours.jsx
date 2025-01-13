@@ -1,5 +1,6 @@
 import React from "react";
 import "./TourPackages.css";
+import "./TripSteps.css";
 
 const TourPackages = () => {
   return (
@@ -76,4 +77,63 @@ const TourPackages = () => {
   );
 };
 
-export default TourPackages;
+
+
+const TripSteps = () => {
+    const steps = [
+      {
+        id: 1,
+        icon: "fa-solid fa-suitcase-rolling",
+        description: "Give Us the Requirement.",
+      },
+      {
+        id: 2,
+        icon: "fa-solid fa-envelope",
+        description: "Few Tour Options will Email to You.",
+      },
+      {
+        id: 3,
+        icon: "fa-solid fa-handshake",
+        description: "Request for any Changes or If not proceed with the Payment.",
+      },
+      {
+        id: 4,
+        icon: "fa-solid fa-bed",
+        description:
+          "Make a Reservation for Air, Hotels, Transport, Sightseeing, Guides, Etc.",
+      },
+      {
+        id: 5,
+        icon: "fa-solid fa-file-signature",
+        description: "Within 72 Hours, Return Back to You with all Confirmation.",
+      },
+      {
+        id: 6,
+        icon: "fa-solid fa-passport",
+        description: "Process Visa.",
+      },
+      {
+        id: 7,
+        icon: "fa-solid fa-plane-departure",
+        description: "Enjoy your tour. Thank you.",
+      },
+    ];
+  
+    return (
+      <div className="trip-steps">
+        <h2 className="trip-steps-title">How to create your trip steps.</h2>
+        <div className="steps-container">
+          {steps.map((step) => (
+            <div className="step" key={step.id}>
+              <div className="step-circle">{step.id}</div>
+              <i className={step.icon}></i>
+              <p className="step-description">{step.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+  
+  
+  export default TourPackages;
