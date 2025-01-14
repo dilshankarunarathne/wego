@@ -1,9 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
 
 function Destination() {
   const location = useLocation();
   const selectedPackage = location.state?.package;
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    date: ''
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    const templateParams = {
+      to_email: process.env.REACT_APP_ADMIN_EMAIL,
+      from_name: formData.name,
+      from_email: formData.email,
+      travel_date: formData.date,
+      package_name: selectedPackage.name,
+      duration: selectedPackage.duration,
+      price: selectedPackage.price
+    };
+
+    try {
+      await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+      );
+      
+      setFormData({ name: '', email: '', date: '' });
+      alert('Booking request sent successfully!');
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      alert('Failed to send booking request. Please try again.');
+    }
+  };
 
   return (
     <div>
@@ -57,15 +100,38 @@ function Destination() {
             <div className="col-lg-4">
               <div className="bg-light p-4 rounded">
                 <h4 className="mb-4">Book This Tour</h4>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="mb-3">
-                    <input type="text" className="form-control" placeholder="Your Name" />
+                    <input 
+                      type="text" 
+                      className="form-control" 
+                      placeholder="Your Name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                    />
                   </div>
                   <div className="mb-3">
-                    <input type="email" className="form-control" placeholder="Your Email" />
+                    <input 
+                      type="email" 
+                      className="form-control" 
+                      placeholder="Your Email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                    />
                   </div>
                   <div className="mb-3">
-                    <input type="date" className="form-control" />
+                    <input 
+                      type="date" 
+                      className="form-control"
+                      name="date"
+                      value={formData.date}
+                      onChange={handleInputChange}
+                      required
+                    />
                   </div>
                   <button type="submit" className="btn btn-primary w-100">Book Now</button>
                 </form>
