@@ -1,8 +1,133 @@
-import React from "react";
+import React, { useState } from "react";
 import "./TourPackages.css";
 import "./TripSteps.css";
 
 const TourPackages = () => {
+  const [selectedCountry, setSelectedCountry] = useState(null);
+
+  const tourPackagesData = {
+    Thailand: [
+      {
+        id: 1,
+        name: "Bangkok & Pattaya Adventure",
+        image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "5 Days",
+        price: "$799",
+      },
+      {
+        id: 2,
+        name: "Phuket Island Escape",
+        image: "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "7 Days",
+        price: "$999",
+      },
+      {
+        id: 3,
+        name: "Chiang Mai Cultural Tour",
+        image: "https://images.unsplash.com/photo-1598127004573-3a359cd8c997?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "4 Days",
+        price: "$699",
+      },
+      {
+        id: 4,
+        name: "Thailand Grand Tour",
+        image: "https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "10 Days",
+        price: "$1499",
+      },
+    ],
+    Malaysia: [
+      {
+        id: 1,
+        name: "Kuala Lumpur City Break",
+        image: "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "4 Days",
+        price: "$699",
+      },
+      {
+        id: 2,
+        name: "Langkawi Beach Holiday",
+        image: "https://images.unsplash.com/photo-1590077428593-a55c475d0340?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "6 Days",
+        price: "$899",
+      },
+      {
+        id: 3,
+        name: "Penang Heritage Tour",
+        image: "https://images.unsplash.com/photo-1505993597083-3bd19fb75e57?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "5 Days",
+        price: "$799",
+      },
+      {
+        id: 4,
+        name: "Borneo Wildlife Adventure",
+        image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "8 Days",
+        price: "$1299",
+      },
+    ],
+    Australia: [
+      {
+        id: 1,
+        name: "Sydney & Gold Coast",
+        image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "8 Days",
+        price: "$1899",
+      },
+      {
+        id: 2,
+        name: "Great Barrier Reef Explorer",
+        image: "https://images.unsplash.com/photo-1633405807334-f0473ac3a40d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "7 Days",
+        price: "$1699",
+      },
+      {
+        id: 3,
+        name: "Melbourne & Great Ocean Road",
+        image: "https://images.unsplash.com/photo-1514395462725-fb4566210144?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "6 Days",
+        price: "$1499",
+      },
+      {
+        id: 4,
+        name: "Outback Adventure",
+        image: "https://images.unsplash.com/photo-1529108190281-9a4f620bc2d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "10 Days",
+        price: "$2199",
+      },
+    ],
+    Indonesia: [
+      {
+        id: 1,
+        name: "Bali Paradise Tour",
+        image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "6 Days",
+        price: "$899",
+      },
+      {
+        id: 2,
+        name: "Jakarta & Yogyakarta",
+        image: "https://images.unsplash.com/photo-1555899434-94d1368aa7af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "7 Days",
+        price: "$999",
+      },
+      {
+        id: 3,
+        name: "Lombok Island Escape",
+        image: "https://images.unsplash.com/photo-1578469550956-0e16b69c6a3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "5 Days",
+        price: "$799",
+      },
+      {
+        id: 4,
+        name: "Komodo Dragon Adventure",
+        image: "https://images.unsplash.com/photo-1577401239170-897942555fb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200",
+        duration: "8 Days",
+        price: "$1299",
+      },
+    ],
+  };
+
   return (
     <div>
       {/* Header Section */}
@@ -23,11 +148,7 @@ const TourPackages = () => {
           </select>
           <input type="date" className="date-picker" />
           <button className="quote-button">Get a Quote in 5 min</button>
-          <img
-            src="profile.jpg" // Replace with actual image path
-            alt="Profile"
-            className="profile-pic"
-          />
+          
         </div>
       </header>
 
@@ -49,7 +170,8 @@ const TourPackages = () => {
               >
                 <a
                   className="position-relative d-block overflow-hidden"
-                  href=""
+                  onClick={() => setSelectedCountry("Thailand")}
+                  style={{ cursor: "pointer" }}
                 >
                   <img
                     className="img-fluid"
@@ -70,7 +192,8 @@ const TourPackages = () => {
               >
                 <a
                   className="position-relative d-block overflow-hidden"
-                  href=""
+                  onClick={() => setSelectedCountry("Malaysia")}
+                  style={{ cursor: "pointer" }}
                 >
                   <img
                     className="img-fluid"
@@ -91,7 +214,8 @@ const TourPackages = () => {
               >
                 <a
                   className="position-relative d-block overflow-hidden"
-                  href=""
+                  onClick={() => setSelectedCountry("Australia")}
+                  style={{ cursor: "pointer" }}
                 >
                   <img
                     className="img-fluid"
@@ -115,7 +239,8 @@ const TourPackages = () => {
           >
             <a
               className="position-relative d-block h-100 overflow-hidden"
-              href=""
+              onClick={() => setSelectedCountry("Indonesia")}
+              style={{ cursor: "pointer" }}
             >
               <img
                 className="img-fluid position-absolute w-100 h-100"
@@ -138,44 +263,38 @@ const TourPackages = () => {
 
       {/* Tour Packages Section */}
       <section className="tour-packages">
-        <h2>Tour Packages</h2>
+        <h2>{selectedCountry ? `${selectedCountry} Tour Packages` : 'All Tour Packages'}</h2>
         <div className="packages-grid">
-          <div className="package">
-            <img
-              src="sri-lanka.jpg" // Replace with actual image path
-              alt="Sri Lanka Tours"
-              className="package-img"
-            />
-            <h3>Sri Lanka Tours</h3>
-            <button className="view-button">View Package ➜</button>
-          </div>
-          <div className="package">
-            <img
-              src="maldives.jpg" // Replace with actual image path
-              alt="Maldives Tours"
-              className="package-img"
-            />
-            <h3>Maldives Tours</h3>
-            <button className="view-button">View Package ➜</button>
-          </div>
-          <div className="package">
-            <img
-              src="singapore.jpg" // Replace with actual image path
-              alt="Singapore Tours"
-              className="package-img"
-            />
-            <h3>Singapore Tours</h3>
-            <button className="view-button">View Package ➜</button>
-          </div>
-          <div className="package">
-            <img
-              src="thailand.jpg" // Replace with actual image path
-              alt="Thailand Tours"
-              className="package-img"
-            />
-            <h3>Thailand Tours</h3>
-            <button className="view-button">View Package ➜</button>
-          </div>
+          {selectedCountry
+            ? tourPackagesData[selectedCountry].map((pkg) => (
+                <div className="package" key={pkg.id}>
+                  <img
+                    src={pkg.image}
+                    alt={pkg.name}
+                    className="package-img"
+                  />
+                  <h3>{pkg.name}</h3>
+                  <p>{pkg.duration}</p>
+                  <p>Starting from {pkg.price}</p>
+                  <button className="view-button">View Package ➜</button>
+                </div>
+              ))
+            : Object.values(tourPackagesData)
+                .flat()
+                .slice(0, 4)
+                .map((pkg) => (
+                  <div className="package" key={pkg.id}>
+                    <img
+                      src={pkg.image}
+                      alt={pkg.name}
+                      className="package-img"
+                    />
+                    <h3>{pkg.name}</h3>
+                    <p>{pkg.duration}</p>
+                    <p>Starting from {pkg.price}</p>
+                    <button className="view-button">View Package ➜</button>
+                  </div>
+                ))}
         </div>
       </section>
     </div>
