@@ -4,6 +4,8 @@ import "./TripSteps.css";
 
 const TourPackages = () => {
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const [searchCountry, setSearchCountry] = useState("");
+  const [searchDuration, setSearchDuration] = useState("");
 
   const tourPackagesData = {
     Thailand: [
@@ -128,19 +130,64 @@ const TourPackages = () => {
     ],
   };
 
+  const handleSearchCountry = (e) => {
+    setSearchCountry(e.target.value);
+    setSelectedCountry(null);
+  };
+
+  const handleSearchDuration = (e) => {
+    setSearchDuration(e.target.value);
+  };
+
+  const filterPackages = () => {
+    let filtered = Object.values(tourPackagesData).flat();
+
+    if (searchCountry && searchCountry !== "Tour Country") {
+      filtered = filtered.filter(pkg => 
+        pkg.name.toLowerCase().includes(searchCountry.toLowerCase())
+      );
+    }
+
+    if (searchDuration && searchDuration !== "Tour duration") {
+      filtered = filtered.filter(pkg => {
+        const duration = parseInt(pkg.duration);
+        switch(searchDuration) {
+          case "3 Days":
+            return duration <= 3;
+          case "7 Days":
+            return duration > 3 && duration <= 7;
+          case "14 Days":
+            return duration > 7 && duration <= 14;
+          default:
+            return true;
+        }
+      });
+    }
+
+    return filtered;
+  };
+
   return (
     <div>
-      {/* Header Section */}
+      {/* Updated Header Section */}
       <header className="header">
         <div className="search-bar">
-          <select className="dropdown">
+          <select 
+            className="dropdown" 
+            value={searchCountry} 
+            onChange={handleSearchCountry}
+          >
             <option>Tour Country</option>
-            <option>Sri Lanka</option>
-            <option>Maldives</option>
-            <option>Singapore</option>
             <option>Thailand</option>
+            <option>Malaysia</option>
+            <option>Australia</option>
+            <option>Indonesia</option>
           </select>
-          <select className="dropdown">
+          <select 
+            className="dropdown" 
+            value={searchDuration} 
+            onChange={handleSearchDuration}
+          >
             <option>Tour duration</option>
             <option>3 Days</option>
             <option>7 Days</option>
@@ -148,7 +195,6 @@ const TourPackages = () => {
           </select>
           <input type="date" className="date-picker" />
           <button className="quote-button">Get a Quote in 5 min</button>
-          
         </div>
       </header>
 
@@ -263,7 +309,13 @@ const TourPackages = () => {
 
       {/* Tour Packages Section */}
       <section className="tour-packages">
-        <h2>{selectedCountry ? `${selectedCountry} Tour Packages` : 'All Tour Packages'}</h2>
+        <h2>
+          {selectedCountry 
+            ? `${selectedCountry} Tour Packages` 
+            : (searchCountry || searchDuration) 
+              ? 'Filtered Tour Packages' 
+              : 'All Tour Packages'}
+        </h2>
         <div className="packages-grid">
           {selectedCountry
             ? tourPackagesData[selectedCountry].map((pkg) => (
@@ -279,22 +331,19 @@ const TourPackages = () => {
                   <button className="view-button">View Package ➜</button>
                 </div>
               ))
-            : Object.values(tourPackagesData)
-                .flat()
-                .slice(0, 4)
-                .map((pkg) => (
-                  <div className="package" key={pkg.id}>
-                    <img
-                      src={pkg.image}
-                      alt={pkg.name}
-                      className="package-img"
-                    />
-                    <h3>{pkg.name}</h3>
-                    <p>{pkg.duration}</p>
-                    <p>Starting from {pkg.price}</p>
-                    <button className="view-button">View Package ➜</button>
-                  </div>
-                ))}
+            : filterPackages().map((pkg) => (
+                <div className="package" key={pkg.id}>
+                  <img
+                    src={pkg.image}
+                    alt={pkg.name}
+                    className="package-img"
+                  />
+                  <h3>{pkg.name}</h3>
+                  <p>{pkg.duration}</p>
+                  <p>Starting from {pkg.price}</p>
+                  <button className="view-button">View Package ➜</button>
+                </div>
+              ))}
         </div>
       </section>
     </div>
