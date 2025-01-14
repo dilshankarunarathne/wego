@@ -7,7 +7,9 @@
   .search-bar {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 1rem;
+    padding: 1rem;
+    margin-top: 60px;  /* Add space below the title */
   }
   
   .dropdown,
@@ -78,4 +80,3 @@
   .view-button:hover {
     background-color: #0056b3;
   }
-  
