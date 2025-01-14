@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./TourPackages.css";
 import "./TripSteps.css";
 
 const TourPackages = () => {
+  const navigate = useNavigate();
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [searchCountry, setSearchCountry] = useState("");
   const [searchDuration, setSearchDuration] = useState("");
@@ -167,6 +169,10 @@ const TourPackages = () => {
     return filtered;
   };
 
+  const handleViewPackage = (pkg) => {
+    navigate('/destination', { state: { package: pkg } });
+  };
+
   return (
     <div>
       {/* Updated Header Section */}
@@ -328,7 +334,12 @@ const TourPackages = () => {
                   <h3>{pkg.name}</h3>
                   <p>{pkg.duration}</p>
                   <p>Starting from {pkg.price}</p>
-                  <button className="view-button">View Package ➜</button>
+                  <button 
+                    className="view-button" 
+                    onClick={() => handleViewPackage(pkg)}
+                  >
+                    View Package ➜
+                  </button>
                 </div>
               ))
             : filterPackages().map((pkg) => (
@@ -341,7 +352,12 @@ const TourPackages = () => {
                   <h3>{pkg.name}</h3>
                   <p>{pkg.duration}</p>
                   <p>Starting from {pkg.price}</p>
-                  <button className="view-button">View Package ➜</button>
+                  <button 
+                    className="view-button" 
+                    onClick={() => handleViewPackage(pkg)}
+                  >
+                    View Package ➜
+                  </button>
                 </div>
               ))}
         </div>
