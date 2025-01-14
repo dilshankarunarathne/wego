@@ -114,38 +114,19 @@ function Header() {
             <Link to="/About" className="nav-item nav-link">
               About
             </Link>
-            <Link to="/Services" className="nav-item nav-link">
+            {/* <Link to="/Services" className="nav-item nav-link">
               Services
-            </Link>
-            <Link to="/Packages" className="nav-item nav-link">
+            </Link> */}
+            {/* <Link to="/Packages" className="nav-item nav-link">
               Packages
-            </Link>
-            <div className="nav-item dropdown">
-              <Link
-                to="#"
-                className="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown"
-              >
-                Pages
-              </Link>
-              <div className="dropdown-menu m-0">
-                <Link to="/Destination" className="dropdown-item">
-                  Destination
+            </Link> */}
+            
+                <Link to="/Tours" className="nav-item nav-link">
+                  Tours
                 </Link>
-                <Link to="/Booking" className="dropdown-item">
+                <Link to="/Booking" className="nav-item nav-link">
                   Booking
                 </Link>
-                <Link to="/Team" className="dropdown-item">
-                  Travel Guides
-                </Link>
-                <Link to="/Testimonial" className="dropdown-item">
-                  Testimonial
-                </Link>
-                <Link to="/Error" className="dropdown-item">
-                  404 Page
-                </Link>
-              </div>
-            </div>
             <Link to="/Contact" className="nav-item nav-link">
               Contact
             </Link>
