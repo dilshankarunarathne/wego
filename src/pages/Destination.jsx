@@ -1,10 +1,74 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
+import './Destination.css';  // Add this import
 
 function Destination() {
   const location = useLocation();
   const selectedPackage = location.state?.package;
+
+  // Add program details for Sri Lanka package 1
+  const packageDetails = {
+    "EXPLORE SRI LANKA IN 04 DAYS 03 NIGHTS": {
+      program: [
+        {
+          day: "Day 01",
+          activities: [
+            "Airport to Negombo",
+            "Visits Negombo City",
+            "Overnight in Negombo",
+            "Pinnawala Elephant Orphanage",
+            "Dambulla Temple",
+            "Overnight in Dambulla"
+          ],
+          details: {
+            "Pinnawala": `Pinnawala Elephant Orphanage is where you can find the largest herd of captive elephants in the world. Established in 1975, it is a popular breeding ground for wild Asian elephants working towards the protection and welfare of these wild mammals. Orphaned and unweaned calves and wounded adults spotted in the forests of Sri Lanka are taken in here for proper care. Here you can take a closer look at the elephants who freely roam on the premises, learn elephant behavioral patterns, and get to know the ways of mahouts. Located amidst the major tourist destinations of the country, a visit to this elephant park is much more convenient and worth your time.`,
+            "Dambulla": `Dambulla is a commercial town in Sri Lanka, located 20 km south of Habarana and 55 km north of Matale, known for hosting the country's largest produce market. Its most famous attractions are the Dambulla Cave Temples and the Golden Temple, both of which are part of one of Sri Lanka's eight UNESCO World Heritage Sites. The Dambulla heritage site has a history that spans from prehistoric times to the modern era.\n\nThe Dambulla Cave Temples, located near the geographical center of the island, are a significant cultural treasure. Dating back to the 1st century BCE, these caves are renowned for their exquisite Sinhala art and sculpture. The complex includes five caves beneath a vast overhanging rock, with intricately painted ceilings and images of Lord Buddha, Bodhisattvas, and various deities. These caves were developed during the Anuradhapura and Polonnaruwa periods and are among the most impressive cave temples in Sri Lanka.`
+          }
+        },
+        {
+          day: "Day 02",
+          activities: [
+            "Visits Sigiri Rock",
+            "Sigiriya Village Tour with Lunch",
+            "Matale Spice Garden",
+            "Overnight in Kandy"
+          ],
+          details: {
+            "Sigiriya": `Sigiriya, often referred to as the "Lion Rock," is an ancient rock fortress and one of Sri Lanka's most iconic landmarks. Located in the central Matale District near the town of Dambulla, it is a UNESCO World Heritage site and a popular tourist destination.\n\nSigiriya, built in the 5th century AD by King Kashyapa I, served as a royal palace atop a 200-meter rock for strategic defense. After his death, the site was abandoned as a royal residence and later used as a Buddhist monastery until the 14th century.`,
+            "Village Tours": `Village tours in Sigiriya offer a glimpse into traditional Sri Lankan rural life. These tours typically include a bullock cart ride, a boat ride on a serene lake, and a walk-through paddy fields and local farms. Visitors can experience traditional cooking, visit a village home, and interact with local villagers, learning about their customs and daily activities.`,
+            "The Matale Spice Garden": `The Matale Spice Garden in Sri Lanka, located near Kandy, is a popular tourist spot known for its rich variety of spices, including cinnamon, pepper, cloves, nutmeg, cardamom, vanilla, and turmeric. Visitors can enjoy guided tours, where they learn about spice cultivation and uses, see demonstrations, and purchase fresh spices and Ayurvedic products.`
+          }
+        },
+        {
+          day: "Day 03",
+          activities: [
+            "Visits Kandy Dalada maligawa",
+            "Cultural Show",
+            "Gem Shop",
+            "Colombo Shopping",
+            "Overnight in Colombo"
+          ],
+          details: {
+            "Sri Dalada Maligawa": `The Temple of the Sacred Tooth Relic, or Dalada Maligawa, in Kandy is one of Sri Lanka's most significant religious and cultural sites, housing the revered tooth relic of the Buddha. This sacred relic, symbolizing both spiritual and political authority, has been enshrined in Kandy since the 16th century and is closely associated with the Sinhalese monarchy.`,
+            "Cultural Show": `Cultural shows in Sri Lanka showcase the island's rich traditions through vibrant performances of dance, music, and rituals. Key highlights include Kandyan dance, known for its elegant movements and elaborate costumes, and Low Country dance, featuring energetic performances with striking masks.`,
+            "Gem shops": `Gem shops in Sri Lanka are popular for offering a wide variety of precious and semi-precious gemstones, including sapphires, rubies, and topaz. The country, known as the "Gem Island," is especially famous for its Ceylon Blue Sapphires.`
+          }
+        },
+        {
+          day: "Day 04",
+          activities: [
+            "Visits Colombo City",
+            "Departure - To Airport"
+          ],
+          details: {
+            "Colombo": `Colombo, the capital of Sri Lanka, is a vibrant city that blends modernity with rich history. It serves as the country's commercial and cultural hub, offering a mix of colonial architecture, bustling markets, and contemporary skyscrapers.\n\nKey attractions include the Galle Face Green, the Gangaramaya Temple, and the historic Fort area. Colombo is also known for its diverse dining scene, luxury shopping, and lively nightlife.`
+          }
+        }
+      ]
+    }
+  };
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -95,7 +159,32 @@ function Destination() {
                   Starting from {selectedPackage.price}
                 </p>
               </div>
-              <p className="mb-4">Experience an unforgettable journey with our carefully curated package.</p>
+
+              {/* Program Details */}
+              {packageDetails[selectedPackage.name] && (
+                <div className="program-details mt-4">
+                  <h3>Program Details</h3>
+                  {packageDetails[selectedPackage.name].program.map((day, index) => (
+                    <div key={index} className="day-section mb-4">
+                      <h4 className="text-primary">{day.day}</h4>
+                      <ul className="list-unstyled">
+                        {day.activities.map((activity, idx) => (
+                          <li key={idx} className="mb-2">
+                            <i className="fa fa-check text-primary me-2"></i>
+                            {activity}
+                          </li>
+                        ))}
+                      </ul>
+                      {Object.entries(day.details).map(([place, description]) => (
+                        <div key={place} className="place-details mb-3">
+                          <h5 className="text-secondary">{place}</h5>
+                          <p style={{ whiteSpace: 'pre-line' }}>{description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
             <div className="col-lg-4">
               <div className="bg-light p-4 rounded">
